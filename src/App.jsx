@@ -12,7 +12,7 @@ import Orders from './pages/orders/Orders';
 import Register from './pages/orders/Orders';
 import './App.scss';
 import {
-  createBrowserRouter,
+  createBrowserRouter,  
   RouterProvider,
   Outlet
 } from 'react-router-dom';
