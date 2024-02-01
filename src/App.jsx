@@ -16,7 +16,6 @@ import {
   RouterProvider,
   Outlet
 } from 'react-router-dom';
-import { useEffect } from "react";
 function App() {
 
   const Layout = () => {
