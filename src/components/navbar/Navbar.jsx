@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import './Navbar.scss';
+import newRequest from '../../utils/newRequest';
 const Navbar = () => {
 
     const[active, setActive] = useState(false);
     const[open, setOpen] = useState(false);
 
     const {pathname} = useLocation();
+    const navigate = useNavigate();
 
     const isActive = () => {
         window.scrollY > 0 ? setActive(true) : setActive(false);
@@ -20,10 +22,16 @@ const Navbar = () => {
         }
     }, [])
 
-    const currentUser = {
-        id: 1,
-        username: "Chaynika",
-        isSeller: true,
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    const handleLogout = async()=>{
+        try{
+            await newRequest.post('/auth/logout');
+            localStorage.setItem("currentUser", null);
+            navigate('/')
+        } catch(err){
+            console.log(err);
+        }
     }
 
     return (
@@ -37,28 +45,35 @@ const Navbar = () => {
                     <span>Fiverr Business</span>
                     <span>Explore</span>
                     <span>English</span>
-                    <span>Sign in</span>
                     {!currentUser?.isSeller && <span>Become a Seller</span>}
-                    {!currentUser &&  <button>Join</button>}
-                    {currentUser && (
+                    {currentUser ? (
                         <div className="user" onClick={()=>setOpen(!open)}>
                             <img 
-                                src="https://images.pexels.com/photos/1115697/pexels-photo-1115697.jpeg?auto=compress&cs=tinysrgb&w=1600" 
+                                src={currentUser.img || "/img/noavatar.jpg"} 
                                 alt="" 
                             />
                             <span>{currentUser?.username}</span>
-                            {open && <div className="options">
-                                {currentUser?.isSeller && (
-                                    <>
-                                        <Link to='/mygigs' className='link'>Gigs</Link>
-                                        <Link to='/add' className='link'>Add New Gig</Link>
-                                    </>
-                                )}
+                            {open && (
+                                <div className="options">
+                                    {currentUser?.isSeller && (
+                                        <>
+                                            <Link to='/mygigs' className='link'>Gigs</Link>
+                                            <Link to='/add' className='link'>Add New Gig</Link>
+                                        </>
+                                    )}
                                 <Link to='/orders' className='link'>Orders</Link>
                                 <Link to='/messages' className='link'>Messages</Link>
-                                <Link to='/' className='link'>Logout</Link>
-                            </div>}
+                                <Link className='link' onClick={handleLogout}>Logout</Link>
+                            </div>
+                            )}
                         </div>
+                    ) : (
+                        <>
+                            <Link to='/login' className='link'>Sign in</Link>
+                            <Link to='/register' className='link'>
+                                <button>Join</button>
+                            </Link>
+                        </>
                     )}
                 </div>
             </div>
@@ -98,7 +113,7 @@ const Navbar = () => {
                 </>
             )}
         </div>
-  )
+  );
 }
 
 export default Navbar

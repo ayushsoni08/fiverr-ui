@@ -9,7 +9,7 @@ import Message from './pages/message/Message';
 import Messages from './pages/messages/Messages';
 import MyGigs from './pages/myGigs/MyGigs';
 import Orders from './pages/orders/Orders';
-import Register from './pages/orders/Orders';
+import Register from './pages/register/Register';
 import './App.scss';
 import {
   createBrowserRouter,  
