@@ -6,8 +6,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
 
 const MyGigs = () => {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  console.log(currentUser._id);
+  const currentUser = getCurrentUser();
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
@@ -52,7 +51,6 @@ const MyGigs = () => {
       <table>
         <tbody>
           {data?.map((gig) => (
-            console.log(data),
             <tr key={gig._id}>
               <td>
                 <img className="image" src={gig.cover} alt="" />
