@@ -10,6 +10,8 @@ import Messages from './pages/messages/Messages';
 import MyGigs from './pages/myGigs/MyGigs';
 import Orders from './pages/orders/Orders';
 import Register from './pages/register/Register';
+import Success from "./pages/success/Success";
+import Pay from './pages/pay/Pay';
 import './App.scss';
 import {
   createBrowserRouter,  
@@ -82,6 +84,14 @@ function App() {
         {
           path: '/register',
           element: <Register />,
+        },
+        {
+          path: '/pay/:id',
+          element: <Pay />
+        },
+        {
+          path: '/success',
+          element: <Success />
         }
       ]
     },
