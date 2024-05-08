@@ -17,6 +17,7 @@ function Gig() {
       }),
   });
 
+
   const userId = data?.userId;
 
   const {isLoading: isLoadingUser, error: errorUser, data: dataUser} = useQuery({
@@ -66,7 +67,7 @@ function Gig() {
               </div>
             )}
             <Slider slidesToShow={1} arrowsScroll={1} className="slider">
-              {data.image.map((img) => (
+              {data?.image?.map((img) => (
                 <img key={img} src={img} alt="" />
               ))}
             </Slider>

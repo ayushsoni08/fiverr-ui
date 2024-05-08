@@ -17,7 +17,7 @@ const MyGigs = () => {
       }),
   });
 
-  console.log(data);
+  // console.log(data);
 
   const mutation = useMutation({
     mutationFn: (id) => {
